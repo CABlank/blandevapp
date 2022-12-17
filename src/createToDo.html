@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlankDev</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+  <style>
+    .nav {
+      justify-content:space-between;
+      align-items:center;
+      padding-left: 40px;
+      padding-right: 100px;
+    }
+    .logo-img {
+
+    }
+    .link {
+      margin: 0px 20px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      color: #1E1E1E;
+    }
+    .link:hover {
+      text-decoration: none;
+    }
+    .link-active:hover {
+      text-decoration: none;
+      border-color: #0056b3;
+    }
+    .link-active {
+      border-bottom-width: 2px;
+      border-bottom-style: solid;
+      border-color: #2A2B3C;
+      
+    }
+    .btn-secondary {
+      background: #2A2B3C;
+      color: white;
+    }
+    .task-finished {
+      text-decoration: line-through;
+    }
+    .dt-title h1 {
+      font-weight: 700;
+    }
+    .dt-info {
+      margin-top: 11px;
+      margin-bottom: 32px;
+    }
+    .dt-info span {
+      font-weight: 600;
+      color: #757575;
+    }
+    .daily-tasks-container {
+      background: #00000033;
+      margin-top: 100px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 90%;
+      max-width: 1050px;
+      padding: 40px 55px;
+    }
+    .dt-container {
+      padding: 40px 55px;
+      background: white;
+    }
+    .dt-task {
+      background: #F4F6F7;
+      margin-bottom: 11px;
+      padding: 32px 34px;
+      display:flex;
+      justify-content:space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    }
+    .custom-checkbox {
+      width: 90%;
+    }
+    .custom-control-label {
+      width: 100%;
+      font-weight: 600;
+    }
+    .btn-tag {
+      background-color: transparent;
+      border: 0;
+      font-size:20px;
+      border-radius: 50%;
+    }
+    .btn-tag:hover {
+      background-color: buttonface;
+    }
+    .btn-updrop-container {
+      margin-top: 24px;
+      width: 100%;
+      display: none;
+      justify-content: end;
+    }
+    .bi {
+      display: flex;
+      padding: 5px 0px;
+    }
+    .dt-description {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 30px;
+      padding: 15px 32px;
+      background-color: white;
+    }
+    .dt-dropdown-active {
+      display: flex;
+    }
+    .btn-hidden {
+      display:none;
+    }
+    .navbar-expand-lg .navbar-collapse {
+      justify-content: flex-end;
+    }
+
+    .links-container {
+      display:flex;
+      flex-direction: row;
+    }
+    .dt-description span {
+      color: #757575;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .dt-description p {
+      color: #000000;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.5px;
+      margin-top:12px;
+    }
+    .tasks-container {
+      margin-top: 22px;
+    }
+    .descritpion-margin {
+      margin-top: 10px;
+    }
+    .bordered-divide {
+      border-top: 1px solid rgba(0,0,0,.1);
+      padding-top: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .logo-img {
+        width: 200px;
+      }
+      .daily-tasks-container {
+        padding: 35px 25px;
+        width: 95%;
+        margin-top: 100px;
+      }
+      .dt-container {
+        padding: 35px 25px;
+      }
+      .dt-task {
+        padding: 24px 16px;
+      }
+      .links-container {
+        flex-direction: column;
+      }
+      .link {
+        margin: 10px 10px;
+        padding: 6px 10px;
+      }
+      .link-active {
+        border: 0px;
+        background-color: rgb(231, 231, 231);
+      }
+      .link-active:hover {
+        background-color: #2A2B3C;
+        color: white;
+      }
+    }
+    @media screen and (max-width: 475px) {
+      .dropdown-btn-container {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+
+    @media screen and (max-width: 425px) {
+      .logo-img {
+        width: 150px;
+      }
+      .daily-tasks-container {
+        padding: 25px 15px;
+        width: 95%;
+        margin-top: 50px;
+      }
+      .dt-container {
+        padding: 25px 15px;
+      }
+      .dt-task {
+        padding: 24px 16px;
+      }
+      
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="/">
+        <img class="logo-img" src="/img/blank-dev.png" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+        <div class="links-container my-2 my-lg-0">
+          <a class="link link-active nav-item" href="">Tasks Verification</a>
+        <a class="link" href="">Guides</a>
+        <a class="link btn btn-secondary" href="">Contact</a>
+        </div>
+      </div>
+    </nav>
+    </nav>
+    <!-- <nav class="nav">
+      <div class="logo-img">
+        <img class="nav-item" src="/img/blank-dev.png" alt="">
+      </div>
+      <div>
+        <a class="link link-active nav-item" href="">Tasks Verification</a>
+        <a class="link" href="">Guides</a>
+        <a class="link btn btn-secondary" href="">Contact</a>
+      </div>
+    </nav> -->
+  </header>
+
+  <div id="alert_container">
+  </div>
+  <h1>Create New To Do</h1>
+  <span class="dt-date">Assign your to-dos for a better management of the project you are working on.</span>
+  <div class="daily-tasks-container">
+    <div class="dt-container">
+      <div class="dt-title">
+        
+      </div>
+      <div class="dt-info">        
+        <h4>Active User: <%= user.name + ' ' + user.lastname %></h4>
+      </div>
+      <form action="/todo/addTask" method="POST" class="dt-tasks-container" id="to-do-form">
+        <div class="form-group d-flex">
+          <label class="col-sm-2" for="user_id">To-Do Title:</label>
+          <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp">
+        </div>
+        <div class="form-group d-flex">
+          <label class="col-sm-2" for="user_id">Date:</label>
+          <input type="date" class="form-control" id="date_to_do" name="date_to_do">
+        </div>
+        <% if(user.role == 'admin') { %>
+          <div class="d-flex">
+            <label for="user_id" class="col-sm-2">Assigned User</label>
+            <div class="form-group w-100">
+              
+              <select class="form-control" name="assigned_id" id="user_id" aria-describedby="userHelp">
+                <% for(const userIterated of users) { %>
+                  <option value="<%= userIterated._id %>"><%= userIterated.name + ' ' + userIterated.lastname %></option>
+                <%} %>
+              </select>
+              <small id="userHelp" class="form-text text-muted">This will be the user who will be assigned the to-do.</small>
+            </div>
+          </div>
+          
+        <%} %>
+        <h3> Tasks </h3>
+        <hr>
+        <div id="tasks-container" class="tasks-container"></div>
+        <button type="button" class="add-task-btn btn btn-primary" onclick="addTask()">Add New Task</button>
+        <button type="submit" class="add-task-btn btn btn-secondary">Create new To-Do</button>
+        
+      </form>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+  <script>
+    const date = document.getElementById('date_to_do')
+    date.min = new Date().toISOString().split("T")[0];
+
+    function addTask () {
+      const tasksContainer = document.getElementById('tasks-container')
+      const index = tasksContainer.childNodes.length + 1
+      console.log(index)
+      const groupForm = document.createElement('div')
+      groupForm.classList.add('form-group')
+      groupForm.classList.add('d-flex')
+      groupForm.classList.add('justify-content-between')
+      groupForm.classList.add('flex-wrap')
+      groupForm.id = `task-group${index}`
+      if(index > 1) {
+        groupForm.classList.add('mt-4')
+        groupForm.classList.add('bordered-divide')
+      }
+      groupForm.innerHTML = `
+        <input class="col-sm-10 form-control" placeholder="New Task..." id="task${index}" type="text" name="task${index}" >
+        <button type="button" class="col-sm-1 btn btn-danger btn-close" onclick="deleteTask(this)" data-close-id="task-group${index}">
+          x
+        </button>
+        <textarea class="form-control col-sm-10 descritpion-margin" placeholder="Write a short description or put some specific instructions if you want..." name="description${index}" id="description${index}" rows="3"></textarea>
+      `
+      tasksContainer.append(groupForm)
+
+    }
+    
+    function deleteTask (e) {
+      const id = e.getAttribute('data-close-id')
+      const taskItem = document.getElementById(id)
+      taskItem.remove()
+      const tasksContainer = document.getElementById('tasks-container')
+      let index = 0
+      for (const element of tasksContainer.childNodes) {
+        index++
+        if( index == 1) {
+          element.classList.remove('mt-4')
+          element.classList.remove('bordered-divide')
+        }
+        element.id = `task-group${index}`
+        const input = element.childNodes[1]
+        input.id = `task${index}`
+        input.setAttribute('name', `task${index}`)
+        const btn = element.childNodes[3]
+        btn.setAttribute('data-close-id', `task-group${index}`) 
+        const description = element.childNodes[5]
+        description.id = `description${index}`
+        description.setAttribute('name', `description${index}`)
+      }
+    }
+
+    const toDoForm = document.getElementById('to-do-form')
+    toDoForm.addEventListener("submit",(e) => {
+      e.preventDefault
+      window.history.back();
+      console.log('sumbit')
+      let formData = new FormData()
+      const inputs = document.getElementsByTagName('input')
+      const textareas = document.getElementsByTagName('textarea')
+      const select = document.getElementsByTagName('select')[0]
+      let totalChecked = 0
+
+      if(select) {
+        formData.append(select.name, select.value);
+        totalChecked++
+      } else {
+        formData.append('assigned_id', '<%= user._id%>')
+        totalChecked++
+      }
+      formData.append('owner_id', '<%= user._id%>')
+      let index = 1
+      for (const input of inputs) {
+        if(input.value){
+          totalChecked++
+          formData.append(input.name, input.value);
+        }
+        index++
+      }
+      index = 0
+      for (const textarea of textareas) {
+        if(textarea.value){
+          formData.append(textarea.name, textarea.value);
+        }
+        index++
+      }
+
+      
+      console.log(totalChecked, inputs.length + 1)
+      if(totalChecked == inputs.length + 1) {
+        fetch('/todo/addTask', {
+            method: 'post',
+            body: formData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          const alertContainer = document.getElementById('alert_container')
+          const successMsg = document.createElement('div')
+          successMsg.classList.add('alert')
+          successMsg.classList.add('alert-success')
+          successMsg.classList.add('alert-dismissible')
+          successMsg.classList.add('fade')
+          successMsg.classList.add('show')
+          successMsg.setAttribute('role', 'alert')
+          successMsg.innerHTML = `
+          <strong>${data.success_msg}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          `
+          alertContainer.appendChild(successMsg)
+        })
+      }
+      
+    })
+
+  </script>
+</body>
+</html>
