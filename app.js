@@ -10,6 +10,3 @@ app.listen(app.get('port'), hostname, () => {
   console.log('Server started on', app.get('port'))
 })
 
-process.on('uncaughtException', () => {
-  app.close()
-})
