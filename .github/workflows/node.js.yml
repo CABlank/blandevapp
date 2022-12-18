@@ -20,7 +20,19 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-     uses: appleboy/ssh-action@v0.1.6
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm run test
+    - name: SSH Remote Commands
+  # You may pin to the exact commit or the version.
+  # uses: appleboy/ssh-action@4a03da89e5c43da56e502053be4bbcb293411883
+      uses: appleboy/ssh-action@v0.1.6
       with:
         key: ${{secrets.FRIST_APP_SSH}}
         host: ${{secrets.FIRSTAPP_IP}}
